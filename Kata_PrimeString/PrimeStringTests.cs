@@ -24,6 +24,42 @@ namespace Kata_PrimeString
             AssertShouldBePrimeString("abac");
         }
 
+        [TestMethod]
+        public void abab_Should_Not_Be_PrimeString()
+        {
+            AssertShouldNotBePrimeString("abab");
+        }
+
+        [TestMethod]
+        public void aaaa_Should_Not_Be_PrimeString()
+        {
+            AssertShouldNotBePrimeString("aaaa");
+        }
+
+        [TestMethod]
+        public void abc_Should_Be_PrimeString()
+        {
+            AssertShouldBePrimeString("abc");
+        }
+
+        [TestMethod]
+        public void fdsyffdsyffdsyffdsyffdsyf_Should_Not_Be_PrimeString()
+        {
+            AssertShouldNotBePrimeString("fdsyffdsyffdsyffdsyffdsyf");
+        }
+
+        [TestMethod]
+        public void utdutdtdutd_Should_Be_PrimeString()
+        {
+            AssertShouldBePrimeString("utdutdtdutd");
+        }
+
+        [TestMethod]
+        public void abba_Should_Be_PrimeString()
+        {
+            AssertShouldBePrimeString("abba");
+        }
+
         private static void AssertShouldNotBePrimeString(string s)
         {
             var actual = new Kata().PrimeString(s);
@@ -46,13 +82,17 @@ namespace Kata_PrimeString
                 return true;
             }
 
-            var primeString = s.Substring(0, 1);
-            if (s.Replace(primeString, "") == "")
+            var result = true;
+            for (int i = 0; i < s.Length / 2; i++)
             {
-                return false;
+                var primeString = s.Substring(0, i + 1);
+                if (s.Replace(primeString, "") == "")
+                {
+                    result = false;
+                }
             }
 
-            return true;
+            return result;
         }
     }
 }
