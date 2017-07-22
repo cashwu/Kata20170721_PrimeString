@@ -18,6 +18,12 @@ namespace Kata_PrimeString
             AssertShouldNotBePrimeString("aa");
         }
 
+        [TestMethod]
+        public void abac_Should_Be_PrimeString()
+        {
+            AssertShouldBePrimeString("abac");
+        }
+
         private static void AssertShouldNotBePrimeString(string s)
         {
             var actual = new Kata().PrimeString(s);
