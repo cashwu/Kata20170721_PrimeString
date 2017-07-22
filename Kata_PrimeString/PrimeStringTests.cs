@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Kata_PrimeString
@@ -75,24 +76,37 @@ namespace Kata_PrimeString
 
     public class Kata
     {
-        public bool PrimeString(string s)
+        public bool PrimeString(string source)
         {
-            if (s.Length == 1)
+            if (source.Length == 1)
             {
                 return true;
             }
 
-            var result = true;
-            for (int i = 0; i < s.Length / 2; i++)
+            for (int i = 1; i <= CheckPrimeStringCount(source); i++)
             {
-                var primeString = s.Substring(0, i + 1);
-                if (s.Replace(primeString, "") == "")
+                if (SourceCanReplaceTempPrimeString(source, TempPrimeString(source, i)))
                 {
-                    result = false;
+                    return false;
                 }
             }
 
-            return result;
+            return true;
+        }
+
+        private static string TempPrimeString(string s, int i)
+        {
+            return s.Substring(0, i);
+        }
+
+        private static int CheckPrimeStringCount(string source)
+        {
+            return source.Length / 2;
+        }
+
+        private static bool SourceCanReplaceTempPrimeString(string source, string tempPrimeString)
+        {
+            return source.Replace(tempPrimeString, "") == "";
         }
     }
 }
