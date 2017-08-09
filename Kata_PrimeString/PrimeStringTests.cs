@@ -61,6 +61,18 @@ namespace Kata_PrimeString
             AssertShouldBePrimeString("abba");
         }
 
+        [TestMethod]
+        public void abba_with_whiteSpace_Should_Be_PrimeString()
+        {
+            AssertShouldBePrimeString("ab ba");
+        }
+
+        [TestMethod]
+        public void abab_with_whiteSpace_Should_Not_Be_PrimeString()
+        {
+            AssertShouldNotBePrimeString("ab ab");
+        }
+
         private static void AssertShouldNotBePrimeString(string s)
         {
             var actual = new Kata().PrimeString(s);
@@ -78,14 +90,9 @@ namespace Kata_PrimeString
     {
         public bool PrimeString(string source)
         {
-            if (source.Length == 1)
+            for (int i = 1; i <= CheckPrimeStringTimes(source); i++)
             {
-                return true;
-            }
-
-            for (int i = 1; i <= CheckPrimeStringCount(source); i++)
-            {
-                if (SourceCanReplaceTempPrimeString(source, TempPrimeString(source, i)))
+                if (SourceCanReplacePrimeString(source, source.Substring(0, i)))
                 {
                     return false;
                 }
@@ -94,19 +101,14 @@ namespace Kata_PrimeString
             return true;
         }
 
-        private static string TempPrimeString(string s, int i)
-        {
-            return s.Substring(0, i);
-        }
-
-        private static int CheckPrimeStringCount(string source)
+        private static int CheckPrimeStringTimes(string source)
         {
             return source.Length / 2;
         }
 
-        private static bool SourceCanReplaceTempPrimeString(string source, string tempPrimeString)
+        private static bool SourceCanReplacePrimeString(string source, string primeString)
         {
-            return source.Replace(tempPrimeString, "") == "";
+            return source.Replace(primeString, "").Trim() == "";
         }
     }
 }
